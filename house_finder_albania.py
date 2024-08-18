@@ -63,30 +63,12 @@ price_filter.send_keys(Keys.ENTER)
 search_button = driver.find_element(By.XPATH, value='//*[@id="search-form"]/div/div[12]/div/button')
 search_button.click()
 
-
-
-# # this is to get the prices of the houses
-# prices = []
-# titles = []
-# links = []
-# # Generalized XPath for all links within the divs
-# xpath = "/html/body/div/section[1]/div/div/div/section/div/div/div/div[2]/div[*]/div/a[2]"
-# links_web = driver.find_elements(By.XPATH, xpath)
-# for link in links_web:
-#     links.append(link.get_attribute('href'))
-#
-# card_bodies = driver.find_elements(By.CLASS_NAME, 'card-body')
-# for card_body in card_bodies:
-#     prices.append(card_body.find_element(By.TAG_NAME, 'h2').text)
-#     titles.append(card_body.find_element(By.CLASS_NAME, 'card-title').text)
-
-# this is to get the prices of the houses
 prices = []
 titles = []
 links = []
 while True:
 
-    # Generalized XPath for all links within the divs
+    # Generalizing XPath for all links within the divs (learned from the chat gpt)
     xpath = "/html/body/div/section[1]/div/div/div/section/div/div/div/div[2]/div[*]/div/a[2]"
     links_web = driver.find_elements(By.XPATH, xpath)
     for link in links_web:
@@ -101,7 +83,7 @@ while True:
     try:
         next_button = wait.until(EC.element_to_be_clickable((By.XPATH, '//a[@rel="next"]')))
         next_button.click()
-        time.sleep(3)  # Wait for new content to load
+        time.sleep(5)  # Wait for new content to load e vene 5 sa persiguri
     except Exception as e:
         print("No more pages or error:", e)
         break
@@ -119,14 +101,4 @@ matrix.to_csv(f'{city}_property_listings.csv', index=False)
 
 
 driver.quit()
-
-
-
-
-
-
-
-
-
-
 
